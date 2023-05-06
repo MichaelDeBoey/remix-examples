@@ -1,4 +1,5 @@
-import * as React from "react";
-const StylesContext = React.createContext<null | React.ReactNode>(null);
+import { createContext, useContext } from "react";
+
+const StylesContext = createContext<null | ReactNode>(null);
 export const StylesProvider = StylesContext.Provider;
-export const useStyles = () => React.useContext(StylesContext);
+export const useStyles = () => useContext(StylesContext);

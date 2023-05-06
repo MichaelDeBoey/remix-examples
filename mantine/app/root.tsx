@@ -13,6 +13,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import type { PropsWithChildren } from "react";
 import { useState } from "react";
 
 export const meta: MetaFunction = () => ({
@@ -43,7 +44,7 @@ export default function App() {
   );
 }
 
-function MantineTheme({ children }: { children: React.ReactNode }) {
+function MantineTheme({ children }: PropsWithChildren) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));

@@ -9,6 +9,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from "@remix-run/react";
+import type { ReactNode } from "react";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -19,7 +20,7 @@ function Document({
   children,
   title = "App title",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   title?: string;
 }) {
   return (

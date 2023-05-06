@@ -6,7 +6,7 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useActionData, useSearchParams } from "@remix-run/react";
-import * as React from "react";
+import { useRef } from "react";
 
 import type { User } from "~/models";
 import { createUserSession, login, redirectUser } from "~/session.server";
@@ -126,7 +126,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function SignIn() {
   const { fieldErrors, fields, formError } = useActionData<typeof action>();
   const [searchParams] = useSearchParams();
-  const formRef = React.useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useFocusOnFormError({ formError, fieldErrors, formRef });
 

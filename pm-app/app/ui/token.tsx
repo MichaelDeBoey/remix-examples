@@ -1,5 +1,5 @@
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
 import { IconX } from "~/ui/icons";
 
@@ -7,7 +7,7 @@ export function Token({
   children,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"span">) {
+}: ComponentPropsWithoutRef<"span">) {
   return (
     <span className={cx(className, "ui--token")} {...props}>
       {children}
@@ -20,7 +20,7 @@ export function TokenDismissButton({
   className,
   type = "button",
   ...props
-}: React.ComponentPropsWithoutRef<"button">) {
+}: ComponentPropsWithoutRef<"button">) {
   return (
     <button
       aria-label="Dismiss"

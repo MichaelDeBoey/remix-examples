@@ -1,11 +1,11 @@
 import cx from "clsx";
-import * as React from "react";
+import type { FormEvent, FunctionComponent } from "react";
 
 import type { User } from "~/models";
 
-const AuthHeader: React.VFC<{
+const AuthHeader: FunctionComponent<{
   className?: string;
-  onLogOut?(event: React.FormEvent<HTMLFormElement>): void;
+  onLogOut?(event: FormEvent<HTMLFormElement>): void;
   user: User;
 }> = ({ className, user, onLogOut }) => {
   return (

@@ -1,7 +1,7 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { marked } from "marked";
-import * as React from "react";
+import type { FunctionComponent } from "react";
 
 type Post = {
   title: string;
@@ -41,7 +41,7 @@ export const loader = async () => {
   );
 };
 
-const Posts: React.FC = () => {
+const Posts: FunctionComponent = () => {
   const posts = useLoaderData<typeof loader>();
 
   return (

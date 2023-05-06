@@ -1,6 +1,6 @@
-import * as React from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
-export function IconDots(props: React.ComponentPropsWithoutRef<"svg">) {
+export function IconDots(props: ComponentPropsWithoutRef<"svg">) {
   return (
     <svg
       height="6"
@@ -18,7 +18,7 @@ export function IconDots(props: React.ComponentPropsWithoutRef<"svg">) {
   );
 }
 
-export function IconX(props: React.ComponentPropsWithoutRef<"svg">) {
+export function IconX(props: ComponentPropsWithoutRef<"svg">) {
   return (
     <svg
       width="5"
@@ -37,7 +37,7 @@ export function IconX(props: React.ComponentPropsWithoutRef<"svg">) {
   );
 }
 
-export function IconAdd(props: React.ComponentPropsWithoutRef<"svg">) {
+export function IconAdd(props: ComponentPropsWithoutRef<"svg">) {
   return (
     <svg
       width="6"
@@ -58,7 +58,7 @@ export function IconAdd(props: React.ComponentPropsWithoutRef<"svg">) {
   );
 }
 
-export function IconZoom(props: React.ComponentPropsWithoutRef<"svg">) {
+export function IconZoom(props: ComponentPropsWithoutRef<"svg">) {
   return (
     <svg
       width="108"
@@ -81,7 +81,7 @@ export function IconZoom(props: React.ComponentPropsWithoutRef<"svg">) {
 export function IconArrowRight({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="16"
@@ -105,7 +105,7 @@ export function IconArrowRight({
 export function IconNavigation({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="29"
@@ -126,7 +126,7 @@ export function IconNavigation({
 export function IconProtection({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="30"
@@ -147,7 +147,7 @@ export function IconProtection({
 export function IconLayers({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="30"
@@ -176,7 +176,7 @@ export function IconLayers({
 export function IconPlay({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="14"
@@ -197,7 +197,7 @@ export function IconPlay({
 export function IconGitHub({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="34"
@@ -218,7 +218,7 @@ export function IconGitHub({
 export function IconError({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="20"
@@ -240,7 +240,7 @@ export function IconError({
 export function IconCheck({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="20"
@@ -262,7 +262,7 @@ export function IconCheck({
 export function IconTwitter({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="32"
@@ -283,7 +283,7 @@ export function IconTwitter({
 export function IconYoutube({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="35"
@@ -304,7 +304,7 @@ export function IconYoutube({
 export function IconStackOverflow({
   color = "currentColor",
   ...props
-}: React.ComponentPropsWithoutRef<"svg"> & { color?: string }) {
+}: ComponentPropsWithoutRef<"svg"> & { color?: string }) {
   return (
     <svg
       width="20"

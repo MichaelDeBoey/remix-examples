@@ -10,7 +10,7 @@ import {
   useFetcher,
   useLoaderData,
 } from "@remix-run/react";
-import * as React from "react";
+import { useEffect } from "react";
 
 import { gdprConsent } from "~/cookies";
 
@@ -29,7 +29,7 @@ export const meta: MetaFunction = () => ({
 export default function App() {
   const { track } = useLoaderData<typeof loader>();
   const analyticsFetcher = useFetcher();
-  React.useEffect(() => {
+  useEffect(() => {
     if (track) {
       const script = document.createElement("script");
       script.src = "/dummy-analytics-script.js";

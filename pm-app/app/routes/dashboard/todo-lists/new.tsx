@@ -12,7 +12,8 @@ import {
   useLoaderData,
   useSearchParams,
 } from "@remix-run/react";
-import * as React from "react";
+import type { FocusEvent, KeyboardEvent } from "react";
+import { useEffect, useState } from "react";
 
 import { createTodoList, getUserProjects } from "~/db.server";
 import stylesUrl from "~/dist/styles/routes/dashboard/todo-lists/new.css";
@@ -129,10 +130,10 @@ const NewTodoList: RouteComponent = () => {
   const { projects } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
   const { fieldErrors, fields, formError } = actionData;
-  const [todos, setTodos] = React.useState<TempTodo[]>([]);
-  const [hydrated, setHyrdrated] = React.useState(false);
-  const [state, setState] = React.useState<"IDLE" | "WRITING_TODO">("IDLE");
-  React.useEffect(() => {
+  const [todos, setTodos] = useState<TempTodo[]>([]);
+  const [hydrated, setHyrdrated] = useState(false);
+  const [state, setState] = useState<"IDLE" | "WRITING_TODO">("IDLE");
+  useEffect(() => {
     setHyrdrated(true);
   }, []);
 
@@ -356,7 +357,7 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  React.useEffect(() => {
+  useEffect(() => {
     console.error(error);
   }, [error]);
 
@@ -370,7 +371,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
   );
 }
 
-function handleTodoListFocus(event: React.FocusEvent<HTMLUListElement>) {
+function handleTodoListFocus(event: FocusEvent<HTMLUListElement>) {
   const target = event.target;
   if (!(target instanceof HTMLElement)) return;
 
@@ -384,7 +385,7 @@ function handleTodoListFocus(event: React.FocusEvent<HTMLUListElement>) {
   }
 }
 
-function handleTodoListBlur(event: React.FocusEvent<HTMLUListElement>) {
+function handleTodoListBlur(event: FocusEvent<HTMLUListElement>) {
   const list = event.currentTarget;
   if (!list.contains(event.relatedTarget)) {
     for (const button of list.querySelectorAll("li button")) {
@@ -393,7 +394,7 @@ function handleTodoListBlur(event: React.FocusEvent<HTMLUListElement>) {
   }
 }
 
-function handleTodoListKeyDown(event: React.KeyboardEvent<HTMLUListElement>) {
+function handleTodoListKeyDown(event: KeyboardEvent<HTMLUListElement>) {
   if (
     ![
       "ArrowUp",

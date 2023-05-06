@@ -1,5 +1,6 @@
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentProps } from "react";
+import { useMemo } from "react";
 
 import type { User } from "~/models";
 
@@ -36,7 +37,7 @@ function Avatar({
 }
 
 function AvatarInits({ name }: { name: string }) {
-  const inits = React.useMemo(() => {
+  const inits = useMemo(() => {
     let inits: string[] | string | undefined = name
       .split(" ")
       .filter(filterMinorWords);
@@ -60,5 +61,5 @@ function filterMinorWords(string: string): boolean {
 interface AvatarProps extends Partial<User> {
   size?: "sm" | "md" | "lg" | "xl" | "2x";
   className?: string;
-  style?: React.ComponentProps<"div">["style"];
+  style?: ComponentProps<"div">["style"];
 }

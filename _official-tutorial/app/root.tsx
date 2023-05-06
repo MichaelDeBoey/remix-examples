@@ -15,7 +15,7 @@ import {
   useNavigation,
   useFetchers,
 } from "@remix-run/react";
-import * as React from "react";
+import { useEffect } from "react";
 
 import appStylesHref from "~/app.css";
 import type { ContactRecord } from "~/data";
@@ -56,7 +56,7 @@ export default function Root() {
   // anyway, it's more straightforward and less code to just synchronize the URL
   // to the input manually. It's okay, Andrew won't arrest you. He's not even a
   // cop.
-  React.useEffect(() => {
+  useEffect(() => {
     const input = document.getElementById("q");
     if (input && input instanceof HTMLInputElement && q) {
       input.value = q;

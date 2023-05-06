@@ -2,12 +2,12 @@
 import type { LinkProps, NavLinkProps } from "@remix-run/react";
 import { Link, NavLink } from "@remix-run/react";
 import cx from "clsx";
-import * as React from "react";
+import { forwardRef } from "react";
 
 import { IconArrowRight } from "~/ui/icons";
 import { isFunction, isExternalUrl } from "~/utils";
 
-const CustomNavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
+const CustomNavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
   ({ to, ...props }, ref) => {
     if (typeof to === "string" && isExternalUrl(to)) {
       const {
@@ -36,7 +36,7 @@ const CustomNavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
 );
 CustomNavLink.displayName = "NavLink";
 
-const CustomLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
+const CustomLink = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ to, ...props }, ref) => {
     if (typeof to === "string" && isExternalUrl(to)) {
       const { replace, state, ...domProps } = props;
@@ -47,7 +47,7 @@ const CustomLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
 );
 CustomLink.displayName = "Link";
 
-const ArrowLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
+const ArrowLink = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ children, className, ...props }, ref) => {
     return (
       <CustomLink

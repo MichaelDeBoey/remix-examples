@@ -1,6 +1,7 @@
 import { useFetcher, useFetchers } from "@remix-run/react";
 import cx from "clsx";
-import * as React from "react";
+import type { PropsWithChildren } from "react";
+import { useRef } from "react";
 
 import type { Todo } from "~/models";
 import { Token } from "~/ui/token";
@@ -8,7 +9,7 @@ import { Token } from "~/ui/token";
 export function TodoList({
   className,
   children,
-}: React.PropsWithChildren<{ className?: string }>) {
+}: PropsWithChildren<{ className?: string }>) {
   return <ul className={cx(className, "ui--todo-list")}>{children}</ul>;
 }
 
@@ -21,7 +22,7 @@ export function TodoItem({
 }) {
   const fetcher = useFetcher();
   const deleteFetcher = useFetcher();
-  const deleteFormRef = React.useRef<HTMLFormElement | null>(null);
+  const deleteFormRef = useRef<HTMLFormElement | null>(null);
 
   const isCompleted = fetcher.submission
     ? Boolean(fetcher.submission.formData.get("complete"))

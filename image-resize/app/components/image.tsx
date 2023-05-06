@@ -1,7 +1,8 @@
+import type { ComponentPropsWithRef } from "react";
 import { forwardRef } from "react";
 import type { FitEnum } from "sharp";
 
-export interface ImageProps extends React.ComponentPropsWithRef<"img"> {
+export interface ImageProps extends ComponentPropsWithRef<"img"> {
   src: string; // a path within the assets/images directory, can be a nested path
   width?: number; // either width or height is required
   height?: number;

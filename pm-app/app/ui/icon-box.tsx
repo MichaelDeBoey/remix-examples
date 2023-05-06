@@ -1,13 +1,7 @@
 import cx from "clsx";
-import * as React from "react";
+import type { ReactNode } from "react";
 
-function IconBox({
-  icon,
-  className,
-}: {
-  icon: React.ReactNode;
-  className?: string;
-}) {
+function IconBox({ icon, className }: { icon: ReactNode; className?: string }) {
   return (
     <div
       className={cx(
