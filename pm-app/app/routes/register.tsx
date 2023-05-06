@@ -6,7 +6,7 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useActionData, useSearchParams } from "@remix-run/react";
-import * as React from "react";
+import { useEffect } from "react";
 
 import { getUser } from "~/db.server";
 import { createUserSession, register } from "~/session.server";
@@ -130,7 +130,7 @@ export default function Register() {
   const { fieldErrors, fields, formError } = useActionData<typeof action>();
   const [searchParams] = useSearchParams();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!formError && !fieldErrors) {
       return;
     }

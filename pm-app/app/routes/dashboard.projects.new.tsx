@@ -1,7 +1,8 @@
 import type { ActionArgs, LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData, useCatch, useLoaderData } from "@remix-run/react";
-import * as React from "react";
+import type { ChangeEvent, FocusEvent } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { createProject, getUsers } from "~/db.server";
 import stylesUrl from "~/dist/styles/routes/dashboard/projects/new.css";
@@ -100,18 +101,18 @@ function NewProject() {
   const { allUsers, user } = useLoaderData<typeof loader>();
   const { fieldErrors, fields, formError } = useActionData<typeof action>();
 
-  const selectableUsers = React.useMemo(() => {
+  const selectableUsers = useMemo(() => {
     return allUsers.filter((u) => u.id !== user.id);
   }, [allUsers, user.id]);
 
   // We don't show the combobox initially to prevent SSR jank. We show and hide
   // it based on whether or not a name is set for the project.
-  const [nameComplete, setNameComplete] = React.useState(false);
-  function handleNameBlur(event: React.FocusEvent<HTMLInputElement>) {
+  const [nameComplete, setNameComplete] = useState(false);
+  function handleNameBlur(event: FocusEvent<HTMLInputElement>) {
     setNameComplete(!!event.target.value);
   }
 
-  function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
     setNameComplete((complete) => {
       if (complete && !event.target.value) {
         return false;
@@ -221,7 +222,7 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  React.useEffect(() => {
+  useEffect(() => {
     console.error(error);
   }, [error]);
 

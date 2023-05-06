@@ -19,6 +19,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from "@remix-run/react";
+import type { PropsWithChildren } from "react";
 import { useContext, useRef, useState } from "react";
 
 import { ClientStyleContext } from "./clientStyleContext";
@@ -119,7 +120,7 @@ function Document({
   );
 }
 
-function MantineTheme({ children }: { children: React.ReactNode }) {
+function MantineTheme({ children }: PropsWithChildren) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));

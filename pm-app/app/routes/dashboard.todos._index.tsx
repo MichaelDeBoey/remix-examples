@@ -6,9 +6,9 @@ import {
   useLoaderData,
   useTransition,
 } from "@remix-run/react";
-import * as React from "react";
 
 import { getAllTodos, getTodo, updateTodo } from "~/db.server";
+import { useRef } from "react";
 
 export const loader = async () => {
   const todos = await getAllTodos();
@@ -35,7 +35,7 @@ export default function Index() {
   const { todo: nextTodo = null } = useActionData<typeof action>() || {};
   const transtion = useTransition();
 
-  const keyMapRef = React.useRef<Map<string, string>>();
+  const keyMapRef = useRef<Map<string, string>>();
   if (!keyMapRef.current) {
     keyMapRef.current = new Map();
   }

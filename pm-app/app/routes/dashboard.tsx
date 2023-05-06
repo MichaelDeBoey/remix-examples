@@ -1,7 +1,7 @@
 import type { LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useCatch } from "@remix-run/react";
-import * as React from "react";
+import type { PropsWithChildren } from "react";
 
 import stylesUrl from "~/dist/styles/routes/dashboard.css";
 import { requireUser } from "~/session.server";
@@ -40,7 +40,7 @@ const navItems = [
 function Layout({
   currentYear,
   children,
-}: React.PropsWithChildren<{ currentYear?: string | number }>) {
+}: PropsWithChildren<{ currentYear?: string | number }>) {
   return (
     <div className="dashboard-layout__container">
       <header className="dashboard-layout__header">

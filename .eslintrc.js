@@ -1,7 +1,7 @@
 /* eslint-env es6 */
 const OFF = 0;
 const WARN = 1;
-const ERROR = 2;
+// const ERROR = 2;
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
@@ -15,11 +15,24 @@ module.exports = {
     "import/internal-regex": "^~/",
   },
   rules: {
+    "no-restricted-imports": [
+      WARN,
+      {
+        importNames: ["default"],
+        message: "Please use named imports instead.",
+        name: "react",
+      },
+      {
+        importNames: ["FC", "VFC", "VoidFunctionComponent"],
+        message: "Please use 'FunctionComponent' instead.",
+        name: "react",
+      },
+    ],
     "prefer-let/prefer-let": OFF,
     "prefer-const": WARN,
 
     "import/order": [
-      ERROR,
+      WARN,
       {
         alphabetize: { caseInsensitive: true, order: "asc" },
         groups: ["builtin", "external", "internal", "parent", "sibling"],

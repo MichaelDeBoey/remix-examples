@@ -16,28 +16,28 @@ import type {
   ComboboxButtonProps as ReachComboboxButtonProps,
 } from "@reach/combobox";
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithRef } from "react";
+import { forwardRef } from "react";
 
 import { useFieldContext, Field } from "~/ui/form";
 
-const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
-  (props, ref) => {
-    const context = useFieldContext();
-    return (
-      <ReachCombobox
-        as="div"
-        ref={ref}
-        {...props}
-        className={cx(props.className, "ui--combobox", {
-          "ui--combobox--invalid": context?.invalid,
-          "ui--combobox--disabled": context?.disabled,
-        })}
-      />
-    );
-  },
+const Combobox = forwardRef<HTMLDivElement, ComboboxProps>((props, ref) => {
+  const context = useFieldContext();
+  return (
+    <ReachCombobox
+      as="div"
+      ref={ref}
+      {...props}
+      className={cx(props.className, "ui--combobox", {
+        "ui--combobox--invalid": context?.invalid,
+        "ui--combobox--disabled": context?.disabled,
+      })}
+    />
+  );
+},
 );
 
-const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>(
+const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
   (props, ref) => {
     return (
       <ReachComboboxInput
@@ -54,7 +54,7 @@ const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>(
   },
 );
 
-const ComboboxPopover = React.forwardRef<HTMLDivElement, ComboboxPopoverProps>(
+const ComboboxPopover = forwardRef<HTMLDivElement, ComboboxPopoverProps>(
   (props, ref) => {
     return (
       <ReachComboboxPopover
@@ -68,7 +68,7 @@ const ComboboxPopover = React.forwardRef<HTMLDivElement, ComboboxPopoverProps>(
   },
 );
 
-const ComboboxList = React.forwardRef<HTMLUListElement, ComboboxListProps>(
+const ComboboxList = forwardRef<HTMLUListElement, ComboboxListProps>(
   (props, ref) => {
     return (
       <ReachComboboxList
@@ -81,7 +81,7 @@ const ComboboxList = React.forwardRef<HTMLUListElement, ComboboxListProps>(
   },
 );
 
-const ComboboxOption = React.forwardRef<HTMLLIElement, ComboboxOptionProps>(
+const ComboboxOption = forwardRef<HTMLLIElement, ComboboxOptionProps>(
   ({ children, ...props }, ref) => {
     return (
       <ReachComboboxOption
@@ -98,7 +98,7 @@ const ComboboxOption = React.forwardRef<HTMLLIElement, ComboboxOptionProps>(
   },
 );
 
-const ComboboxButton = React.forwardRef<HTMLButtonElement, ComboboxButtonProps>(
+const ComboboxButton = forwardRef<HTMLButtonElement, ComboboxButtonProps>(
   (props, ref) => {
     const context = useFieldContext();
     return (
@@ -122,33 +122,30 @@ ComboboxButton.displayName = "ComboboxButton";
 
 interface ComboboxProps
   extends ReachComboboxProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachComboboxProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof ReachComboboxProps> {}
 
 interface ComboboxInputProps
   extends ReachComboboxInputProps,
     Omit<
-      React.ComponentPropsWithRef<"input">,
+      ComponentPropsWithRef<"input">,
       "type" | keyof ReachComboboxInputProps
     > {}
 
 interface ComboboxListProps
   extends ReachComboboxListProps,
-    Omit<React.ComponentPropsWithRef<"ul">, keyof ReachComboboxListProps> {}
+    Omit<ComponentPropsWithRef<"ul">, keyof ReachComboboxListProps> {}
 
 interface ComboboxOptionProps
   extends ReachComboboxOptionProps,
-    Omit<React.ComponentPropsWithRef<"li">, keyof ReachComboboxOptionProps> {}
+    Omit<ComponentPropsWithRef<"li">, keyof ReachComboboxOptionProps> {}
 
 interface ComboboxPopoverProps
   extends ReachComboboxPopoverProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachComboboxPopoverProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof ReachComboboxPopoverProps> {}
 
 interface ComboboxButtonProps
   extends ReachComboboxButtonProps,
-    Omit<
-      React.ComponentPropsWithRef<"button">,
-      keyof ReachComboboxButtonProps
-    > {}
+    Omit<ComponentPropsWithRef<"button">, keyof ReachComboboxButtonProps> {}
 
 export {
   Combobox,

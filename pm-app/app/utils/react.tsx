@@ -1,4 +1,10 @@
-import * as React from "react";
+import type { RefObject } from "react";
+import {
+  useEffect,
+  useLayoutEffect as reactUseLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { canUseDOM } from "~/utils";
 
@@ -9,9 +15,9 @@ export function useFocusOnFormError({
 }: {
   formError: any;
   fieldErrors: Record<string, any> | null | undefined;
-  formRef: React.RefObject<HTMLFormElement | null | undefined>;
+  formRef: RefObject<HTMLFormElement | null | undefined>;
 }) {
-  React.useEffect(() => {
+  useEffect(() => {
     const form = formRef.current;
     if (!form) return;
     if (!formError && !fieldErrors) return;
@@ -41,10 +47,10 @@ export function useFocusOnFormError({
 }
 
 export function useThrottle(value: any, limit: number) {
-  const [throttledValue, setThrottledValue] = React.useState(value);
-  const lastRan = React.useRef(Date.now());
+  const [throttledValue, setThrottledValue] = useState(value);
+  const lastRan = useRef(Date.now());
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = window.setTimeout(
       () => {
         if (Date.now() - lastRan.current >= limit) {
@@ -61,4 +67,4 @@ export function useThrottle(value: any, limit: number) {
   return throttledValue;
 }
 
-export const useLayoutEffect = canUseDOM ? React.useLayoutEffect : () => {};
+export const useLayoutEffect = canUseDOM ? reactUseLayoutEffect : () => {};

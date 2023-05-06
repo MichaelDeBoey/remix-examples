@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from "@remix-run/react";
-import * as React from "react";
+import type { PropsWithChildren } from "react";
 
 import globalStylesUrl from "~/styles/global.css";
 
@@ -45,13 +45,7 @@ export default function App() {
   );
 }
 
-function Document({
-  children,
-  title,
-}: {
-  children: React.ReactNode;
-  title?: string;
-}) {
+function Document({ children, title }: PropsWithChildren<{ title?: string }>) {
   return (
     <html lang="en">
       <head>
@@ -69,7 +63,7 @@ function Document({
   );
 }
 
-function Layout({ children }: React.PropsWithChildren<{}>) {
+function Layout({ children }: PropsWithChildren) {
   return <div className="remix-app">{children}</div>;
 }
 

@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from "@remix-run/react";
+import type { PropsWithChildren } from "react";
 import { useContext, useEffect } from "react";
 
 import ClientStyleContext from "~/styles/client.context";
@@ -24,10 +25,7 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-interface DocumentProps {
-  children: React.ReactNode;
-  title?: string;
-}
+type DocumentProps = PropsWithChildren<{ title?: string }>;
 
 const Document = ({ children, title }: DocumentProps) => {
   const clientStyleData = useContext(ClientStyleContext);

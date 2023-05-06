@@ -7,7 +7,8 @@ import {
   useLoaderData,
   useTransition,
 } from "@remix-run/react";
-import * as React from "react";
+import type { PropsWithChildren, ReactNode } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 
 import { getProject, getUsers } from "~/db.server";
 import stylesUrl from "~/dist/styles/routes/dashboard/projects/$projectId/index.css";
@@ -72,11 +73,11 @@ export default function ProjectRoute() {
   const actionData: ActionData = {};
 
   const { fieldErrors } = actionData || {};
-  const [showTeamDialog, setShowTeamDialog] = React.useState(false);
-  const [showEditDialog, setShowEditDialog] = React.useState(false);
+  const [showTeamDialog, setShowTeamDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
   // TODO: Move to loader
-  const selectableUsers = React.useMemo(() => {
+  const selectableUsers = useMemo(() => {
     return allUsers.filter((u) => u.id !== user.id);
   }, [allUsers, user.id]);
 
@@ -103,16 +104,16 @@ export default function ProjectRoute() {
   // TODO: Consider sending to a separate route
   // TODO: Try catching potential error and sending data back via the fetcher
   const membersFetcher = useFetcher();
-  const membersFormRef = React.useRef<HTMLFormElement>(null);
+  const membersFormRef = useRef<HTMLFormElement>(null);
 
-  const [optimisticMembers, setOptimisticSelectedMembers] = React.useState(
+  const [optimisticMembers, setOptimisticSelectedMembers] = useState(
     project.members,
   );
 
   // Submit the membersFetcher form any time the optimistic member state
   // is updated.
-  const initialRender = React.useRef(true);
-  React.useEffect(() => {
+  const initialRender = useRef(true);
+  useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
       return;
@@ -121,12 +122,12 @@ export default function ProjectRoute() {
   }, [membersFetcher, optimisticMembers]);
 
   const deleteFetcher = useFetcher();
-  const deleteFormRef = React.useRef<HTMLFormElement>(null);
+  const deleteFormRef = useRef<HTMLFormElement>(null);
 
   // Edit form stuff
   // TODO: Get correct state from action
   const transition = useTransition();
-  React.useEffect(() => {
+  useEffect(() => {
     if (transition.state === "idle") {
       setShowEditDialog(false);
     }
@@ -137,7 +138,7 @@ export default function ProjectRoute() {
   // as well, but no use in showing something in the UI if it won't work!
   // TODO: Stick this into the loader!
   const projectMembers = project.members;
-  const [membersExcludingSelf, memberIds] = React.useMemo(() => {
+  const [membersExcludingSelf, memberIds] = useMemo(() => {
     const excludingSelf: typeof projectMembers = [];
     const userIds: Array<UserSecure["id"]> = [];
     for (const member of projectMembers) {
@@ -149,18 +150,17 @@ export default function ProjectRoute() {
     return [excludingSelf, userIds] as const;
   }, [projectMembers, user.id]);
 
-  const [optimisticMembersExcludingSelf, optimisticMemberIds] =
-    React.useMemo(() => {
-      const excludingSelf: typeof optimisticMembers = [];
-      const userIds: Array<UserSecure["id"]> = [];
-      for (const member of optimisticMembers) {
-        userIds.push(member.id);
-        if (member.id !== user.id) {
-          excludingSelf.push(member);
-        }
+  const [optimisticMembersExcludingSelf, optimisticMemberIds] = useMemo(() => {
+    const excludingSelf: typeof optimisticMembers = [];
+    const userIds: Array<UserSecure["id"]> = [];
+    for (const member of optimisticMembers) {
+      userIds.push(member.id);
+      if (member.id !== user.id) {
+        excludingSelf.push(member);
       }
-      return [excludingSelf, userIds] as const;
-    }, [optimisticMembers, user.id]);
+    }
+    return [excludingSelf, userIds] as const;
+  }, [optimisticMembers, user.id]);
 
   return (
     <Layout
@@ -231,7 +231,7 @@ export default function ProjectRoute() {
             </Heading>
             <Section as="div" className="project-index__todolists">
               {project.todoLists.length > 0 ? (
-                <React.Fragment>
+                <Fragment>
                   {project.todoLists.map((list) => {
                     return (
                       <article
@@ -261,7 +261,7 @@ export default function ProjectRoute() {
                       <span>Create a new list</span>
                     </Link>
                   </div>
-                </React.Fragment>
+                </Fragment>
               ) : (
                 <div>
                   <p>
@@ -449,12 +449,12 @@ function Layout({
   description,
   memberList,
   main,
-}: React.PropsWithChildren<{
-  heading: React.ReactNode | string;
-  optionsPanel?: React.ReactNode;
-  description?: React.ReactNode;
-  memberList?: React.ReactNode;
-  main?: React.ReactNode;
+}: PropsWithChildren<{
+  heading: ReactNode | string;
+  optionsPanel?: ReactNode;
+  description?: ReactNode;
+  memberList?: ReactNode;
+  main?: ReactNode;
 }>) {
   return (
     <MaxContainer className="project-index">

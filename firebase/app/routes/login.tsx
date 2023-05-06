@@ -6,6 +6,7 @@ import {
   useLoaderData,
   useSubmit,
 } from "@remix-run/react";
+import type { FormEvent } from "react";
 import { useCallback, useState } from "react";
 
 import * as firebaseRest from "~/firebase-rest";
@@ -71,7 +72,7 @@ export default function Login() {
   const submit = useSubmit();
 
   const handleSubmit = useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
+    async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       // To avoid rate limiting, we sign in client side if we can.
       const login = await firebaseRest.signInWithPassword(

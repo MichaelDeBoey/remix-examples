@@ -1,7 +1,8 @@
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithRef } from "react";
+import { forwardRef } from "react";
 
-const MaxContainer = React.forwardRef<HTMLDivElement, MaxContainerProps>(
+const MaxContainer = forwardRef<HTMLDivElement, MaxContainerProps>(
   ({ children, className, ...props }, forwardedRef) => {
     return (
       <div
@@ -20,7 +21,7 @@ interface MaxContainerOwnProps {}
 
 interface MaxContainerProps
   extends MaxContainerOwnProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof MaxContainerOwnProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof MaxContainerOwnProps> {}
 
 export type { MaxContainerProps };
 export { MaxContainer };

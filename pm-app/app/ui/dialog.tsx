@@ -8,15 +8,16 @@ import type {
   DialogContentProps as ReachDialogContentProps,
 } from "@reach/dialog";
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithRef } from "react";
+import { createContext, forwardRef, useContext } from "react";
 
 import { composeEventHandlers } from "~/utils";
 
 import { IconX } from "./icons";
 
-const DialogContext = React.createContext<any>(null);
+const DialogContext = createContext<any>(null);
 
-const DialogOverlay = React.forwardRef<HTMLDivElement, DialogOverlayProps>(
+const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(
   ({ children, ...props }, ref) => {
     return (
       <ReachDialogOverlay
@@ -33,7 +34,7 @@ const DialogOverlay = React.forwardRef<HTMLDivElement, DialogOverlayProps>(
   },
 );
 
-const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
+const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
   ({ children, ...props }, ref) => {
     return (
       <ReachDialogContent
@@ -47,7 +48,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
   },
 );
 
-const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
+const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (
     {
       allowPinchZoom = false,
@@ -74,25 +75,24 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
   },
 );
 
-const DialogCloseButton = React.forwardRef<
-  HTMLButtonElement,
-  DialogCloseButtonProps
->(({ className, onClick, ...props }, ref) => {
-  const { onDismiss } = React.useContext(DialogContext);
-  return (
-    <button
-      ref={ref}
-      type="button"
-      aria-label="Close Dialog"
-      onClick={composeEventHandlers(onClick, onDismiss)}
-      className={cx(className, "ui--dialog__close-button")}
-      title="Close dialog"
-      {...props}
-    >
-      <IconX aria-hidden height={16} width={16} />
-    </button>
-  );
-});
+const DialogCloseButton = forwardRef<HTMLButtonElement, DialogCloseButtonProps>(
+  ({ className, onClick, ...props }, ref) => {
+    const { onDismiss } = useContext(DialogContext);
+    return (
+      <button
+        ref={ref}
+        type="button"
+        aria-label="Close Dialog"
+        onClick={composeEventHandlers(onClick, onDismiss)}
+        className={cx(className, "ui--dialog__close-button")}
+        title="Close dialog"
+        {...props}
+      >
+        <IconX aria-hidden height={16} width={16} />
+      </button>
+    );
+  }
+);
 
 Dialog.displayName = "Dialog";
 DialogOverlay.displayName = "DialogOverlay";
@@ -103,15 +103,15 @@ export { Dialog, DialogContent, DialogOverlay, DialogCloseButton };
 
 interface DialogProps
   extends ReachDialogProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachDialogProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof ReachDialogProps> {}
 
 interface DialogOverlayProps
   extends ReachDialogOverlayProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachDialogOverlayProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof ReachDialogOverlayProps> {}
 
 interface DialogContentProps
   extends ReachDialogContentProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachDialogContentProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof ReachDialogContentProps> {}
 
 interface DialogCloseButtonProps
-  extends Omit<React.ComponentPropsWithRef<"button">, "children"> {}
+  extends Omit<ComponentPropsWithRef<"button">, "children"> {}

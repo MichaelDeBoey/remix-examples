@@ -1,7 +1,8 @@
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithRef } from "react";
+import { forwardRef } from "react";
 
-const Stack = React.forwardRef<HTMLDivElement, StackProps>(
+const Stack = forwardRef<HTMLDivElement, StackProps>(
   (
     { children, className, align = "start", gap = 0, ...props },
     forwardedRef,
@@ -40,7 +41,7 @@ const Stack = React.forwardRef<HTMLDivElement, StackProps>(
 
 Stack.displayName = "Stack";
 
-interface StackProps extends React.ComponentPropsWithRef<"div"> {
+interface StackProps extends ComponentPropsWithRef<"div"> {
   align?: Alignment | Record<"default" | Viewport, Alignment>;
   gap?: Gap | Record<"default" | Viewport, Gap>;
 }

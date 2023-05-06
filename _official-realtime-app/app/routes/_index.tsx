@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node";
 import { Link, useFetcher, useLoaderData, useNavigate } from "@remix-run/react";
 import classNames from "classnames";
+import type { MutableRefObject } from "react";
 import { useEffect, useRef } from "react";
 
 import * as AmalgoBox from "~/amalgo-box.client";
@@ -227,7 +228,7 @@ function Icon({ id, className }: { id: string; className?: string }) {
 }
 
 function useCustomElementEvent<T>(
-  ref: React.MutableRefObject<HTMLElement | undefined>,
+  ref: MutableRefObject<HTMLElement | undefined>,
   eventName: string,
   eventHandler: (event: T) => void,
 ) {

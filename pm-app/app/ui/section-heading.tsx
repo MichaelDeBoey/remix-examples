@@ -1,21 +1,28 @@
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithRef, ElementType } from "react";
+import {
+  createContext,
+  forwardRef,
+  Fragment,
+  useContext,
+  useMemo,
+} from "react";
 
-const LevelContext: React.Context<HeadingLevel> = React.createContext(
-  1 as HeadingLevel,
+const LevelContext = createContext<HeadingLevel>(
+  1
 );
 
+
+
 function useHeadingLevelContext() {
-  return React.useContext(LevelContext);
+  return useContext(LevelContext);
 }
 
-const Section = React.forwardRef<HTMLElement, SectionProps>(
+const Section = forwardRef<HTMLElement, SectionProps>(
   ({ as: asProp, children, ...props }, ref) => {
-    const Wrapper = asProp || React.Fragment;
+    const Wrapper = asProp || Fragment;
     const level = useHeadingLevelContext();
-    const ctx = React.useMemo(
-      () => Math.min(level + 1, 6) as HeadingLevel,
-      [level],
+    const ctx = useMemo(() => Math.min(level + 1, 6) as HeadingLevel, [level],
     );
 
     return (
@@ -27,10 +34,10 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
 );
 Section.displayName = "Section";
 
-const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
+const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ as: asProp, level: levelProp, ...props }, ref) => {
     const level = useHeadingLevelContext();
-    const Comp: React.ElementType = asProp
+    const Comp: ElementType = asProp
       ? asProp === "title"
         ? "h1"
         : asProp
@@ -49,12 +56,12 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
 );
 Heading.displayName = "Heading";
 
-interface HeadingProps extends React.ComponentPropsWithRef<"h1"> {
+interface HeadingProps extends ComponentPropsWithRef<"h1"> {
   level?: HeadingLevel;
   as?: "title" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
-interface SectionProps extends React.ComponentPropsWithRef<"section"> {
+interface SectionProps extends ComponentPropsWithRef<"section"> {
   as?: "section" | "div";
 }
 

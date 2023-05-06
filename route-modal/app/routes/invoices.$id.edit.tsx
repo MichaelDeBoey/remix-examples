@@ -3,7 +3,8 @@ import styles from "@reach/dialog/styles.css";
 import type { ActionArgs, LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData, useNavigate } from "@remix-run/react";
-import * as React from "react";
+import type { FormEvent } from "react";
+import { useState } from "react";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -45,7 +46,7 @@ export default function Edit() {
   const navigate = useNavigate();
   const data = useLoaderData<typeof loader>();
 
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     company: data.company,
     description: data.description,
     amount: data.amount,
@@ -53,7 +54,7 @@ export default function Edit() {
   });
 
   function handleChange(
-    event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: FormEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     const { name, value } = event.currentTarget;
     setFormData({ ...formData, [name]: value });

@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from "@remix-run/react";
+import { PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -74,13 +75,7 @@ export function CatchBoundary() {
   );
 }
 
-function Document({
-  children,
-  title,
-}: {
-  children: React.ReactNode;
-  title?: string;
-}) {
+function Document({ children, title }: PropsWithChildren<{ title?: string }>) {
   return (
     <html lang="en">
       <head>

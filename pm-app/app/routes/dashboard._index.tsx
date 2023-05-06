@@ -1,7 +1,7 @@
 import type { LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useCatch, useFetcher, useLoaderData } from "@remix-run/react";
-import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { getUserProjects } from "~/db.server";
 import stylesUrl from "~/dist/styles/routes/dashboard/index.css";
@@ -41,10 +41,10 @@ export default function DashboardIndex() {
   const { user, projects } = useLoaderData<typeof loader>();
   const { nameFirst } = user;
   const deleteFetcher = useFetcher();
-  const deleteFormRef = React.useRef<HTMLFormElement | null>(null);
-  const [projectToDelete, setProjectToDelete] = React.useState<
-    Project["id"] | null
-  >(null);
+  const deleteFormRef = useRef<HTMLFormElement | null>(null);
+  const [projectToDelete, setProjectToDelete] = useState<Project["id"] | null>(
+    null
+  );
 
   if (!user) {
     return <p>Opppps</p>;
@@ -172,7 +172,7 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  React.useEffect(() => {
+  useEffect(() => {
     console.error(error);
   }, [error]);
 

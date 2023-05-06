@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { Image } from "~/components/image";
 
 const containerStyles = {
@@ -16,7 +17,7 @@ export default function Index() {
   return (
     <div style={containerStyles}>
       <h1>Cover</h1>
-      <div style={imageGridStyles as React.CSSProperties}>
+      <div style={imageGridStyles as CSSProperties}>
         <Image src="dog-1.jpg" alt="dog" width={600} height={600} fit="cover" />
         <Image src="dog-1.jpg" alt="dog" width={300} height={300} fit="cover" />
         <Image src="dog-1.jpg" alt="dog" width={150} height={150} fit="cover" />
@@ -24,7 +25,7 @@ export default function Index() {
       </div>
 
       <h1>Contain</h1>
-      <div style={imageGridStyles as React.CSSProperties}>
+      <div style={imageGridStyles as CSSProperties}>
         <Image src="other-dogs/dog-2.jpg" alt="dog" width={600} fit="contain" />
         <Image src="other-dogs/dog-2.jpg" alt="dog" width={300} fit="contain" />
         <Image src="other-dogs/dog-2.jpg" alt="dog" width={150} fit="contain" />

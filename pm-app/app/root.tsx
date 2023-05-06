@@ -10,6 +10,7 @@ import {
   useCatch,
   useLoaderData,
 } from "@remix-run/react";
+import type { PropsWithChildren } from "react";
 
 import global from "~/dist/styles/global.css";
 import type { User } from "~/models";
@@ -33,11 +34,10 @@ function Document({
   children,
   title,
   ENV = {},
-}: {
-  children: React.ReactNode;
-  title?: string;
+}: PropsWithChildren<{
   ENV?: Record<any, any>;
-}) {
+  title?: string;
+}>) {
   return (
     <html lang="en">
       <head>

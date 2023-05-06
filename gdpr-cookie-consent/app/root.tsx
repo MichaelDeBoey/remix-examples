@@ -9,6 +9,7 @@ import {
   useFetcher,
   useRouteLoaderData,
 } from "@remix-run/react";
+import type { ReactNode } from "react";
 import { useEffect } from "react";
 
 import { gdprConsent } from "~/cookies.server";
@@ -20,7 +21,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({ track: cookie.gdprConsent });
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
   // We use `useRouteLoaderData` here instead of `useLoaderData` because
   // the <Layout /> component will also be used by the <ErrorBoundary />
   // if an error is thrown somewhere in the app, and we can't call

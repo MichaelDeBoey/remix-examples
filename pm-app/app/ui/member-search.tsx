@@ -1,6 +1,22 @@
 import cx from "clsx";
 import { matchSorter } from "match-sorter";
-import * as React from "react";
+import type {
+  ChangeEvent,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  FocusEvent,
+  ComponentPropsWithoutRef,
+  KeyboardEvent,
+} from "react";
+import {
+  createContext,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useContext,
+} from "react";
 
 import type { UserSecure } from "~/models";
 import {
@@ -22,11 +38,10 @@ import { useLayoutEffect, useThrottle } from "~/utils/react";
 interface MemberSearchContextValue {
   selectableUsers: UserSecure[];
   selectedUsers: UserSecure[];
-  setSelectedUsers: React.Dispatch<React.SetStateAction<UserSecure[]>>;
+  setSelectedUsers: Dispatch<SetStateAction<UserSecure[]>>;
 }
 
-const MemberSearchContext = React.createContext<MemberSearchContextValue>(
-  null!,
+const MemberSearchContext = createContext<MemberSearchContextValue>(null!,
 );
 
 export function MemberSearch({
@@ -39,32 +54,32 @@ export function MemberSearch({
 }: {
   users: UserSecure[];
   className?: string;
-  children:
-    | React.ReactNode
-    | ((props: MemberSearchContextValue) => React.ReactNode);
+  children: ReactNode | ((props: MemberSearchContextValue) => ReactNode);
   initialSelection?: UserSecure[];
   selection?: UserSecure[];
-  onSelectionChange?: React.Dispatch<React.SetStateAction<UserSecure[]>>;
+  onSelectionChange?: Dispatch<SetStateAction<UserSecure[]>>;
 }) {
-  const isControlledRef = React.useRef(selection !== undefined);
-  const [valueState, setValue] = React.useState(initialSelection || []);
+  const isControlledRef = useRef(selection !== undefined);
+  const [valueState, setValue] = useState(initialSelection || []);
 
   const selectedUsers = isControlledRef.current ? selection! : valueState;
 
-  const setSelectionRef = React.useRef(onSelectionChange);
+  const setSelectionRef = useRef(onSelectionChange);
   useLayoutEffect(() => {
     setSelectionRef.current = onSelectionChange;
   }, [onSelectionChange]);
-  const setSelectedUsers: React.Dispatch<React.SetStateAction<UserSecure[]>> =
-    React.useCallback((val) => {
+  const setSelectedUsers: Dispatch<SetStateAction<UserSecure[]>> = useCallback(
+    (val) => {
       const setSelection = setSelectionRef.current;
       if (!isControlledRef.current) {
         setValue(val);
       }
       setSelection && setSelection(val);
-    }, []);
+    },
+    []
+  );
 
-  const context = React.useMemo<MemberSearchContextValue>(() => {
+  const context = useMemo<MemberSearchContextValue>(() => {
     const selectableUsers = users.filter((u) => {
       return !selectedUsers.find((sel) => sel.id === u.id);
     });
@@ -89,16 +104,16 @@ export function MemberSearchCombobox({
   ...props
 }: { className?: string } & Omit<ComboboxProps, "children">) {
   const { selectableUsers, setSelectedUsers } = useMemberSearchContext();
-  const [comboboxValue, setComboboxValue] = React.useState("");
+  const [comboboxValue, setComboboxValue] = useState("");
   const comboboxResults = useUserMatch(selectableUsers, comboboxValue);
 
-  function handleComboboxBlur(event: React.FocusEvent<HTMLDivElement>) {
+  function handleComboboxBlur(event: FocusEvent<HTMLDivElement>) {
     if (!event.currentTarget.contains(event.relatedTarget as Node)) {
       setComboboxValue("");
     }
   }
 
-  function handleComboboxChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleComboboxChange(event: ChangeEvent<HTMLInputElement>) {
     setComboboxValue(event.target.value);
   }
 
@@ -180,7 +195,7 @@ export function MemberSearchHiddenField({ name }: { name: string }) {
 
 function useUserMatch(users: UserSecure[], term: string) {
   const throttledTerm = useThrottle(term, 100);
-  return React.useMemo(
+  return useMemo(
     () =>
       throttledTerm.trim() === ""
         ? null
@@ -195,7 +210,7 @@ function MemberToken({
   value,
   remove,
   ...props
-}: React.ComponentPropsWithoutRef<"span"> & {
+}: ComponentPropsWithoutRef<"span"> & {
   value: string;
   remove: (value: string) => void;
 }) {
@@ -210,7 +225,7 @@ function MemberToken({
   );
 }
 
-function handleMemberListFocus(event: React.FocusEvent<HTMLElement>) {
+function handleMemberListFocus(event: FocusEvent<HTMLElement>) {
   const target = event.target;
   if (!(target instanceof HTMLElement)) return;
 
@@ -224,7 +239,7 @@ function handleMemberListFocus(event: React.FocusEvent<HTMLElement>) {
   }
 }
 
-function handleMemberListBlur(event: React.FocusEvent<HTMLElement>) {
+function handleMemberListBlur(event: FocusEvent<HTMLElement>) {
   const list = event.currentTarget;
   if (!list.contains(event.relatedTarget)) {
     for (const button of list.querySelectorAll("button")) {
@@ -233,7 +248,7 @@ function handleMemberListBlur(event: React.FocusEvent<HTMLElement>) {
   }
 }
 
-function handleMemberListKeyDown(event: React.KeyboardEvent<HTMLElement>) {
+function handleMemberListKeyDown(event: KeyboardEvent<HTMLElement>) {
   if (
     ![
       "ArrowUp",
@@ -279,7 +294,7 @@ function handleMemberListKeyDown(event: React.KeyboardEvent<HTMLElement>) {
 }
 
 export function useMemberSearchContext() {
-  const ctx = React.useContext(MemberSearchContext);
+  const ctx = useContext(MemberSearchContext);
   if (!MemberSearchContext) {
     throw Error("Called useMemberSearchContext outside of its provider!");
   }

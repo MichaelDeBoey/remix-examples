@@ -1,9 +1,10 @@
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithRef } from "react";
+import { forwardRef } from "react";
 
 const COMP_CLASS = "ui--flex";
 
-const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
+const Flex = forwardRef<HTMLDivElement, FlexProps>(
   (
     {
       children,
@@ -57,7 +58,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
 );
 Flex.displayName = "Flex";
 
-const FlexItem = React.forwardRef<HTMLDivElement, FlexItemProps>(
+const FlexItem = forwardRef<HTMLDivElement, FlexItemProps>(
   (
     { children, className, grow, shrink, justify, align, place, ...props },
     forwardedRef,
@@ -111,11 +112,11 @@ interface FlexItemOwnProps {
 
 interface FlexProps
   extends FlexOwnProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof FlexOwnProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof FlexOwnProps> {}
 
 interface FlexItemProps
   extends FlexItemOwnProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof FlexItemOwnProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof FlexItemOwnProps> {}
 
 export type { FlexProps, FlexItemProps };
 export { Flex, FlexItem };

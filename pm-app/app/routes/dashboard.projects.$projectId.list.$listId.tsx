@@ -6,7 +6,6 @@ import type {
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useFetcher, useFetchers, useLoaderData } from "@remix-run/react";
-import * as React from "react";
 
 import {
   getProjects,
@@ -24,6 +23,7 @@ import { Link } from "~/ui/link";
 import { Heading, Section } from "~/ui/section-heading";
 import { Stack } from "~/ui/stack";
 import { TodoItem, TodoList } from "~/ui/todo-list";
+import { useEffect, useState } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesUrl },
@@ -238,9 +238,9 @@ function TodoListRoute() {
 function NewTodoForm({ listId }: { listId: TTodoList["id"] }) {
   const todoFetcher = useFetcher();
 
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
   const submissionAction = todoFetcher.submission?.action;
-  React.useEffect(() => {
+  useEffect(() => {
     if (submissionAction?.startsWith("/dashboard/todos/new")) {
       setValue("");
     }

@@ -15,14 +15,15 @@ import type {
   MenuItemsProps as ReachMenuItemsProps,
 } from "@reach/menu-button";
 import cx from "clsx";
-import * as React from "react";
+import type { ComponentPropsWithRef } from "react";
+import { forwardRef } from "react";
 
 import { Button } from "~/ui/button";
 import { IconDots } from "~/ui/icons";
 import type { LinkProps } from "~/ui/link";
 import { Link } from "~/ui/link";
 
-const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
+const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
   ({ className, children, id, ...props }, ref) => {
     return (
       <div ref={ref} id={id} className={cx(className, "ui--dropdown-menu")}>
@@ -35,7 +36,7 @@ const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 );
 DropdownMenu.displayName = "DropdownMenu";
 
-const DropdownMenuButton = React.forwardRef<
+const DropdownMenuButton = forwardRef<
   HTMLButtonElement,
   DropdownMenuButtonProps
 >(({ className, ...props }, ref) => {
@@ -50,7 +51,7 @@ const DropdownMenuButton = React.forwardRef<
 });
 DropdownMenuButton.displayName = "DropdownMenuButton";
 
-const DropdownMenuButtonUnstyled = React.forwardRef<
+const DropdownMenuButtonUnstyled = forwardRef<
   HTMLButtonElement,
   DropdownMenuButtonProps
 >(({ className, ...props }, ref) => {
@@ -67,7 +68,7 @@ const DropdownMenuButtonUnstyled = React.forwardRef<
 });
 DropdownMenuButtonUnstyled.displayName = "DropdownMenuButtonUnstyled";
 
-const DropdownMenuOptionsButton = React.forwardRef<
+const DropdownMenuOptionsButton = forwardRef<
   HTMLButtonElement,
   Omit<DropdownMenuButtonProps, "children"> & { size?: 6 | 8 | 10 }
 >(({ className, size, ...props }, ref) => {
@@ -94,7 +95,7 @@ const DropdownMenuOptionsButton = React.forwardRef<
 });
 DropdownMenuOptionsButton.displayName = "DropdownMenuOptionsButton";
 
-const DropdownMenuPopover = React.forwardRef<
+const DropdownMenuPopover = forwardRef<
   HTMLDivElement,
   DropdownMenuPopoverProps
 >(({ className, ...props }, ref) => {
@@ -109,40 +110,38 @@ const DropdownMenuPopover = React.forwardRef<
 });
 DropdownMenuPopover.displayName = "DropdownMenuPopover";
 
-const DropdownMenuList = React.forwardRef<
-  HTMLDivElement,
-  DropdownMenuListProps
->(({ className, ...props }, ref) => {
-  return (
-    <ReachMenuItems
-      ref={ref}
-      className={cx(className, "ui--dropdown-menu__list")}
-      {...props}
-    />
-  );
-});
+const DropdownMenuList = forwardRef<HTMLDivElement, DropdownMenuListProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <ReachMenuItems
+        ref={ref}
+        className={cx(className, "ui--dropdown-menu__list")}
+        {...props}
+      />
+    );
+  }
+);
 DropdownMenuList.displayName = "DropdownMenuList";
 
-const DropdownMenuItem = React.forwardRef<
-  HTMLDivElement,
-  DropdownMenuItemProps
->(({ className, onSelect = () => {}, variant, ...props }, ref) => {
-  return (
-    <ReachMenuItem
-      ref={ref}
-      className={cx(
-        className,
-        "ui--dropdown-menu__item",
-        variant && `ui--dropdown-menu__item--${variant}`,
-      )}
-      onSelect={onSelect}
-      {...props}
-    />
-  );
-});
+const DropdownMenuItem = forwardRef<HTMLDivElement, DropdownMenuItemProps>(
+  ({ className, onSelect = () => {}, variant, ...props }, ref) => {
+    return (
+      <ReachMenuItem
+        ref={ref}
+        className={cx(
+          className,
+          "ui--dropdown-menu__item",
+          variant && `ui--dropdown-menu__item--${variant}`,
+        )}
+        onSelect={onSelect}
+        {...props}
+      />
+    );
+  }
+);
 DropdownMenuItem.displayName = "DropdownMenuItem";
 
-const DropdownMenuItemLink = React.forwardRef<
+const DropdownMenuItemLink = forwardRef<
   HTMLAnchorElement,
   DropdownMenuItemLinkProps
 >(({ className, ...props }, ref) => {
@@ -174,25 +173,25 @@ export {
 
 export interface DropdownMenuProps
   extends Omit<ReachMenuProps, "id">,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachMenuProps> {
+    Omit<ComponentPropsWithRef<"div">, keyof ReachMenuProps> {
   id: string;
 }
 
 export interface DropdownMenuButtonProps
   extends ReachMenuButtonProps,
-    Omit<React.ComponentPropsWithRef<"button">, keyof ReachMenuButtonProps> {}
+    Omit<ComponentPropsWithRef<"button">, keyof ReachMenuButtonProps> {}
 
 export interface DropdownMenuPopoverProps
   extends ReachMenuPopoverProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachMenuPopoverProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof ReachMenuPopoverProps> {}
 
 export interface DropdownMenuListProps
   extends ReachMenuItemsProps,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachMenuItemsProps> {}
+    Omit<ComponentPropsWithRef<"div">, keyof ReachMenuItemsProps> {}
 
 export interface DropdownMenuItemProps
   extends Omit<ReachMenuItemProps, "onSelect">,
-    Omit<React.ComponentPropsWithRef<"div">, keyof ReachMenuItemProps> {
+    Omit<ComponentPropsWithRef<"div">, keyof ReachMenuItemProps> {
   onSelect?(): void;
   variant?: "danger";
 }

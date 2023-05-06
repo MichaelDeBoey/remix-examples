@@ -9,7 +9,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import * as React from "react";
+import { useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
 
 import type { ToastMessage } from "~/message.server";
@@ -43,7 +43,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function App() {
   const { toastMessage } = useLoaderData<typeof loader>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!toastMessage) {
       return;
     }
