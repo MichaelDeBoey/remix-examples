@@ -15,7 +15,7 @@ This example shows how to use Styletron with Remix.
 ### Relevant files
 
 - [app/styletron.ts](./app/styletron.ts) - Here's where we handle the styletron-related logic.
-- [app/root.tsx](./app/root.tsx) - This is where we render the app and if we're rendering on the server.
+- [`app/root.tsx`](./app/root.tsx) - This is where we render the app and if we're rendering on the server.
   - We indicate where we want the styles to be added by inserting `__STYLES__` at the bottom of `<head>`;
   - We wrap the `<Outlet>` with `<StyletronProvider value={styletron}>`
 - [app/entry.server.tsx](./app/entry.server.tsx) - This is where we render the app on the server and replace `__STYLES__` with the styles that styletron collects.

@@ -12,7 +12,7 @@ Open this example on [CodeSandbox](https://codesandbox.com):
 
 In this example, we have a list of users and one user that does not exist. When you navigate to the user that does not exist, our CatchBoundary renders in place of the component for that route.
 
-Check [app/routes/users/$userId.tsx](app/routes/users/$userId.tsx) to see the CatchBoundary in action.
+Check [`app/routes/users.$userId.tsx`](app/routes/users.$userId.tsx) to see the CatchBoundary in action.
 
 ## Related Links
 
